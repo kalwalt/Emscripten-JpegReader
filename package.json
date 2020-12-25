@@ -1,0 +1,17 @@
+{
+  "name": "emscripten-jpegreader",
+  "version": "0.0.1",
+  "description": "A simple Emscripten Jpeg Reader",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node scripts/makem.js; echo Built at `date`"
+  },
+  "keywords": [
+    "Emscripten",
+    "Jpeg",
+    "javascript"
+  ],
+  "author": "kalwalt (Walter Perdan)",
+  "license": "ISC"
+}
