@@ -1,4 +1,8 @@
-import pkg from './package.json';
+//import pkg from './package.json';
+import commonjs from '@rollup/plugin-commonjs';
+import builtins from 'rollup-plugin-node-builtins';
+import globals from 'rollup-plugin-node-globals';
+import babel from 'rollup-plugin-babel';
 import json from '@rollup/plugin-json';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import { terser } from "rollup-plugin-terser";
@@ -12,16 +16,26 @@ export default {
 			file: 'dist/JpegReader.js',
 			sourcemap: true,
 			globals: {
-               axios: 'axios'
+				axios: 'axios'
 			}
 		}
 	],
-	external: [
-		...Object.keys(pkg.dependencies || {})
-	],
+	external: ['axios'],
 	plugins: [
-		json(),
-		nodeResolve(),
+		commonjs({
+			browser: false,
+		  }),
+		builtins(),
+		globals(),
+		babel({exclude: 'node_modules/**',  runtimeHelpers: true}),
+		json({
+			compact: true
+		}),
+		nodeResolve({
+			jsnext: true,
+			browser: true,
+			preferBuiltins: false
+		  }),
 		terser() // minifies generated bundles
 	]
 };

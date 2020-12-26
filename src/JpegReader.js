@@ -19,9 +19,6 @@ export default class JpegReader {
     this.instance = runtime.instance
     this._decorate()
 
-    // we're committing a cardinal sin here by exporting the instance into
-    // the global namespace. all blame goes to the person who created that CPP
-    // wrapper ARToolKitJS.cpp and introduced a global "artoolkitNFT" variable.
     const scope = (typeof window !== 'undefined') ? window : global
     scope.JpegReader = this
 

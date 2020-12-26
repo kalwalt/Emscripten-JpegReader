@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Load a Jpeg with Emscripten</title>
+</head>
+<body>
+    <script type="module" src="../dist/JpegReader.js"></script>
+    <script type="module">
+        async function init() {
+            const jpg = new JpegReader()
+            let loadJ = await jpg.loadJpeg("../examples/data/pinball.jpg");
+        }
+        init();
+    </script>
+</body>
+</html>
