@@ -18,6 +18,7 @@ export default class JpegReader {
     const runtime = await ModuleLoader.init()
     this.instance = runtime.instance
     this._decorate()
+    console.log(this.instance);
 
     const scope = (typeof window !== 'undefined') ? window : global
     scope.JpegReader = this
@@ -55,6 +56,10 @@ export default class JpegReader {
 
     // return the internal marker ID
     return this.instance.readJpeg(target)
+  }
+
+  loadFile(url) {
+    this.instance.readJpeg(url)
   }
 
   // ---------------------------------------------------------------------------

@@ -15,9 +15,9 @@ export default {
 			name: 'JpegReader',
 			file: 'dist/JpegReader.js',
 			sourcemap: true,
-			globals: {
+			/*globals: {
 				axios: 'axios'
-			}
+			}*/
 		}
 	],
 	external: ['axios'],

@@ -10,7 +10,10 @@
     <script type="module">
         async function init() {
             const jpg = new JpegReader()
-            let loadJ = await jpg.loadJpeg("../examples/data/pinball.jpg");
+            await jpg.init().then(async  res => {
+                jpg.loadFile("./examples/data/pinball.jpg");
+                // await jpg.loadJpeg("./examples/data/pinball.jpg") // this not works...!
+            })
         }
         init();
     </script>
