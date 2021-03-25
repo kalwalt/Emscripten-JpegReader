@@ -15,9 +15,9 @@ export default {
 			name: 'JpegReader',
 			file: 'dist/JpegReader.js',
 			sourcemap: true,
-			/*globals: {
+			globals: {
 				axios: 'axios'
-			}*/
+			}
 		}
 	],
 	external: ['axios'],
@@ -26,7 +26,6 @@ export default {
 			browser: false,
 		  }),
 		builtins(),
-		globals(),
 		babel({exclude: 'node_modules/**',  runtimeHelpers: true}),
 		json({
 			compact: true

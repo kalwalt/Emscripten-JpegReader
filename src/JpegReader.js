@@ -7,6 +7,7 @@ export default class JpegReader {
   constructor () {
     // reference to WASM module
     this.instance
+    this.jpegCount = 0
     this.version = '0.0.1'
     console.info('JpegReader ', this.version)
   }
@@ -29,7 +30,8 @@ export default class JpegReader {
   _decorate () {
     // add delegate methods
     [
-      'readJpeg'
+      'readJpeg',
+      'FS'
     ].forEach(method => {
       this[method] = this.instance[method]
     })
@@ -60,6 +62,53 @@ export default class JpegReader {
 
   loadFile(url) {
     this.instance.readJpeg(url)
+  }
+
+  async loadJpegFile(res, url) {
+    var filename = '/trackable_' + this.jpegCount++
+    console.log(this.jpegCount);
+    console.log(filename);
+    try {
+       let data = await this._ajax(res, url, filename)
+       return data
+    } catch (e) {
+      console.log(e)
+    return e
+    }
+  }
+
+  _ajax (that, url, target) {
+    let self = that
+    return new Promise((resolve, reject) => {
+      const oReq = new window.XMLHttpRequest()
+      oReq.open('GET', url, true)
+      oReq.responseType = 'arraybuffer' // blob arraybuffer
+  
+      oReq.onload = function () {
+        if (this.status === 200) {
+          // console.log('ajax done for ', url);
+          const arrayBuffer = oReq.response
+          const byteArray = new Uint8Array(arrayBuffer)
+          console.log(this);
+          console.log(JpegReader);
+          JpegReader.log()
+          self.FS.writeFile(target, byteArray, { encoding: 'binary' })
+          resolve(byteArray)
+        } else {
+          reject(this.status)
+        }
+      }
+      oReq.send()
+    })
+  }
+
+  static log() {
+    console.log('hei');
+  }
+
+  static writeFile(target, byteArray) {
+    console.log(this.instance);
+    this.FS.writeFile(target, byteArray, { encoding: 'binary' })
   }
 
   // ---------------------------------------------------------------------------
