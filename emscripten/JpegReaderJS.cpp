@@ -6,19 +6,18 @@
 #include <emscripten.h>
 
 extern "C" {
-     void addJpeg(const char *filename) {
+    void addJpeg(const char *filename) {
         JpegImageT *jpegImage;
         std::string ext;
-        ext = "jpg";
-        printf("%s", (char*)ext.c_str());
-        printf("%s", (char*)filename);
+        printf("%s\n", (char*)filename);
         arUtilRemoveExt((char*)filename);
-        std::cout << filename << std::endl;
+        std::cout << "Filename now is: " << filename << std::endl;
         jpegImage = ar2ReadJpegImage(filename, ext.c_str());
         std::cout << "Reading the jpeg image!" << std::endl;  
     }
 
     void readJpeg(std::string filename) {
+        printf("%s\n", filename.c_str());
         addJpeg(filename.c_str());
     }
 }

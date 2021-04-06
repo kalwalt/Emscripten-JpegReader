@@ -65,12 +65,13 @@ export default class JpegReader {
   }
 
   async loadJpegFile(res, url) {
-    var filename = '/trackable_' + this.jpegCount++
+    const target = '/trackable_' + this.jpegCount++
     console.log(this.jpegCount);
-    console.log(filename);
+    console.log(target);
     try {
-       let data = await this._ajax(res, url, filename)
-       return data
+       let data = await this._ajax(res, url, target)
+       this._storeDataFile(data, target)
+       return this.instance.readJpeg(target)
     } catch (e) {
       console.log(e)
     return e
