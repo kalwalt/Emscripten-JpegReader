@@ -25,6 +25,7 @@ extern "C" {
         char buf[256];
         char buf1[512], buf2[512];
         JpegImageT *jpegImage;
+        printf("%s\n", (char*)filename);
         if (!filename) return (E_BAD_PARAMETER);
          ext = arUtilGetFileExtensionFromPath(filename, 1);
         if (!ext) {

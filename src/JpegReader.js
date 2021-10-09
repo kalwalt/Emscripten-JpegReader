@@ -73,7 +73,8 @@ export default class JpegReader {
       //this._storeDataFile(data, target) // this is the same as self.FS.writeFile(target, byteArray, { encoding: 'binary' })
       console.log(data);
       console.log(target);
-      return this.instance.readJpeg(target)
+      this.instance.readJpeg(url)
+      return data
     } catch (e) {
       console.log("Error in the loadJpegFile: ", e)
     return e
