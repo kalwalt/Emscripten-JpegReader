@@ -69,16 +69,18 @@ export default class JpegReader {
     console.log(this.jpegCount);
     console.log(target);
     try {
-       let data = await this._ajax(res, url, target)
-       this._storeDataFile(data, target)
-       return this.instance.readJpeg(target)
+      let data = await this._ajax(res, url, target)
+      //this._storeDataFile(data, target) // this is the same as self.FS.writeFile(target, byteArray, { encoding: 'binary' })
+      console.log(data);
+      console.log(target);
+      return this.instance.readJpeg(target)
     } catch (e) {
-      console.log(e)
+      console.log("Error in the loadJpegFile: ", e)
     return e
     }
   }
 
-  _ajax (that, url, target) {
+  async _ajax (that, url, target) {
     let self = that
     return new Promise((resolve, reject) => {
       const oReq = new window.XMLHttpRequest()
@@ -97,6 +99,7 @@ export default class JpegReader {
           resolve(byteArray)
         } else {
           reject(this.status)
+          console.error("Error in the aiax function!")
         }
       }
       oReq.send()
