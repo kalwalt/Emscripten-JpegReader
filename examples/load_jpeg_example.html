@@ -12,8 +12,8 @@
             const jpg = new JpegReader()
             await jpg.init().then(async (res) => {
                 console.log(res);
-                //jpg.loadFile("./examples/data/pinball.jpg");
-                let filename = await jpg.loadJpegFile(res, "./data/pinball.jpg");
+                res.loadFile("pinball.jpg");
+                //let filename = await jpg.loadJpegFile(res, "./data/pinball.jpg");
                 //let filename = await jpg.loadJpeg("./examples/data/pinball.jpg") // this not works...! axios issue?
                 //let r = res.instance.readJpeg("./data/pinball.jpg")
                 //console.log(r);
