@@ -56,6 +56,7 @@ const char *arUtilGetFileNameFromPath(const char *path)
     if (!*path) return (NULL);
 
 	sep = strrchr((char*)path, '/');
+    std::cout << sep << std::endl;
 #ifdef _WIN32
     sep1 = strrchr(path, '\\');
     if (sep1 > sep) sep = sep1;

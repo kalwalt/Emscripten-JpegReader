@@ -6,15 +6,15 @@
     <title>Load a Jpeg with Emscripten</title>
 </head>
 <body>
-    <script type="module" src="../dist/JpegReader.js"></script>
-    <script type="module">
+    <script  src="../dist/JpegReader.js"></script>
+    <script>
         async function init() {
             const jpg = new JpegReader()
             await jpg.init().then(async (res) => {
                 console.log(res);
                 //res.loadFile("pinball.jpg");
-                let filename = await res.loadJpegFile(res, "../examples/data/pinball.jpg");
-                //let filename = await jpg.loadJpeg("./examples/data/pinball.jpg") // this not works...! axios issue?
+                //let filename = await res.loadJpegFile(res, "../examples/data/pinball.jpg");
+                let filename = await jpg.loadJpeg("./data/pinball.jpg") // this not works...! axios issue?
                 //let r = res.instance.readJpeg("./data/pinball.jpg")
                 //console.log(r);
                 console.log(filename);

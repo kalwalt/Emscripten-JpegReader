@@ -42,13 +42,17 @@ export default class JpegReader {
 
   // public accessors
   async loadJpeg (urlOrData) {
-    const target = '/load_jpeg_' + this.jpegCount++
+    const targetPrefix = '/load_jpeg_' + this.jpegCount++
 
     let data
+    let ext = 'jpg'
+    const fullUrl = urlOrData + '.' + ext
+    const target = targetPrefix + '.' + ext
 
     if (urlOrData instanceof Uint8Array) {
       // assume preloaded camera params
       data = urlOrData
+      
     } else {
       // fetch data via HTTP
       try { data = await Utils.fetchRemoteData(urlOrData) } catch (error) { throw error }
@@ -73,7 +77,7 @@ export default class JpegReader {
       //this._storeDataFile(data, target) // this is the same as self.FS.writeFile(target, byteArray, { encoding: 'binary' })
       console.log(data);
       console.log(target);
-      this.instance.readJpeg(url)
+      await this.instance.readJpeg(url)
       return data
     } catch (e) {
       console.log("Error in the loadJpegFile: ", e)

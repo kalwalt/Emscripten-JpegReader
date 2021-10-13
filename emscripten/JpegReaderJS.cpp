@@ -2,7 +2,10 @@
 #include <string>
 #include <vector>
 #include "JpegReader/Jreader.h"
-#include "JpegReader/utils.h"
+//#include "JpegReader/utils.h"
+#include <AR/ar.h>
+#include <AR2/config.h>
+#include <AR2/util.h>
 #include <emscripten.h>
 
 extern "C" {
