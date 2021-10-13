@@ -11,9 +11,8 @@
       async function init() {
         const jpg = new JpegReader();
         await jpg.init().then(async (res) => {
-          let filename =  res.loadJpeg("./data/pinball.jpg");
-          console.log(filename);
-        });       
+          res.loadJpeg("./data/pinball.jpg");
+        });
       }
       init();
     </script>
