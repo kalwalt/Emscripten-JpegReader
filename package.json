@@ -1,10 +1,9 @@
 {
   "name": "emscripten-jpegreader",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A simple Emscripten Jpeg Reader",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node scripts/makem.js; echo Built at `date`",
     "dev-es6": "webpack --mode development --progress --watch",
     "build-es6": "webpack --mode production"
