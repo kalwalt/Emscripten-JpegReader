@@ -19,8 +19,6 @@ export default class JpegReader {
     const runtime = await ModuleLoader.init()
     this.instance = runtime.instance
     this._decorate()
-    console.log(this.instance);
-
     const scope = (typeof window !== 'undefined') ? window : global
     scope.JpegReader = this
 
@@ -70,13 +68,9 @@ export default class JpegReader {
 
   async loadJpegFile(res, url) {
     const target = '/trackable_' + this.jpegCount++
-    console.log(this.jpegCount);
-    console.log(target);
     try {
       let data = await this._ajax(res, url, target)
       //this._storeDataFile(data, target) // this is the same as self.FS.writeFile(target, byteArray, { encoding: 'binary' })
-      console.log(data);
-      console.log(target);
       await this.instance.readJpeg(url)
       return data
     } catch (e) {
