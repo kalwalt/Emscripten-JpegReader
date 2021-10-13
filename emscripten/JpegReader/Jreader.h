@@ -5,7 +5,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>
-#include "jpeglib.h"
+#include <jpeglib.h>
 #include <setjmp.h>
 
 typedef struct {
