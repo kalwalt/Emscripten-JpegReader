@@ -15,7 +15,6 @@ export default class Utils {
       const response = await axios.get(url, { responseType: 'arraybuffer' })
       .then((response) => {
         data = new Uint8Array(response.data)
-        console.log(data);
         callback(response)
       })
       return response
