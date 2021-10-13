@@ -62,58 +62,6 @@ export default class JpegReader {
     return this.instance.readJpeg(target)
   }
 
-  loadFile(url) {
-    this.instance.readJpeg(url)
-  }
-
-  async loadJpegFile(res, url) {
-    const target = '/trackable_' + this.jpegCount++
-    try {
-      let data = await this._ajax(res, url, target)
-      //this._storeDataFile(data, target) // this is the same as self.FS.writeFile(target, byteArray, { encoding: 'binary' })
-      await this.instance.readJpeg(url)
-      return data
-    } catch (e) {
-      console.log("Error in the loadJpegFile: ", e)
-    return e
-    }
-  }
-
-  async _ajax (that, url, target) {
-    let self = that
-    return new Promise((resolve, reject) => {
-      const oReq = new window.XMLHttpRequest()
-      oReq.open('GET', url, true)
-      oReq.responseType = 'arraybuffer' // blob arraybuffer
-  
-      oReq.onload = function () {
-        if (this.status === 200) {
-          // console.log('ajax done for ', url);
-          const arrayBuffer = oReq.response
-          const byteArray = new Uint8Array(arrayBuffer)
-          console.log(this);
-          console.log(JpegReader);
-          JpegReader.log()
-          self.FS.writeFile(target, byteArray, { encoding: 'binary' })
-          resolve(byteArray)
-        } else {
-          reject(this.status)
-          console.error("Error in the aiax function!")
-        }
-      }
-      oReq.send()
-    })
-  }
-
-  static log() {
-    console.log('hei');
-  }
-
-  static writeFile(target, byteArray) {
-    console.log(this.instance);
-    this.FS.writeFile(target, byteArray, { encoding: 'binary' })
-  }
-
   // ---------------------------------------------------------------------------
 
   // implementation
