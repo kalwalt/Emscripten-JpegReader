@@ -1,6 +1,6 @@
 {
   "name": "emscripten-jpegreader",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A simple Emscripten Jpeg Reader",
   "main": "index.js",
   "scripts": {
