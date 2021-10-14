@@ -1,10 +1,9 @@
-#include "JpegReader/Jreader.h"
-#include <cstdlib>
 #include <stdio.h>
 #include <string>
 #include <vector>
 #include <AR/ar.h>
 #include <AR2/config.h>
+#include <AR2/imageFormat.h>
 #include <AR2/util.h>
 #include <emscripten.h>
 
@@ -31,24 +30,22 @@ int addJpeg(const char *filename) {
   char *ext;
   char buf1[512], buf2[512];
   
-  JpegImageT *jpegImage;
+  AR2JpegImageT *jpegImage;
   
   if (!filename)
     return (E_BAD_PARAMETER);
   ext = arUtilGetFileExtensionFromPath(filename, 1);
   if (!ext) {
-    std::cout << "Error: unable to determine extension of file '%s'. Exiting.\n"
-              << filename << std::endl;
+    ARLOGe("Error: unable to determine extension of file '%s'. Exiting.\n", filename);
     EXIT(E_INPUT_DATA_ERROR);
   }
   if (strcmp(ext, "jpeg") == 0 || strcmp(ext, "jpg") == 0 ||
       strcmp(ext, "jpe") == 0) {
-    std::cout << "Reading JPEG file...\n" << std::endl;
+    ARLOGi("Reading JPEG file...\n");
     ar2UtilDivideExt(filename, buf1, buf2);
     jpegImage = ar2ReadJpegImage(buf1, buf2);
     if (jpegImage == NULL) {
-      std::cout << "Error: unable to read JPEG image from file '%s'. Exiting.\n"
-                << filename << std::endl;
+      ARLOGe("Error: unable to read JPEG image from file '%s'. Exiting.\n", filename);
       EXIT(E_INPUT_DATA_ERROR);
     }
     ARLOGi("   Done.\n");
