@@ -37,7 +37,7 @@ int addJpeg(const char *filename) {
     return (E_BAD_PARAMETER);
   ext = arUtilGetFileExtensionFromPath(filename, 1);
   if (!ext) {
-    ARLOGe("Error: unable to determine extension of file '%s'. Exiting.\n", filename);
+    webarkitLOGe("Error: unable to determine extension of file '%s'. Exiting.\n", filename);
     EXIT(E_INPUT_DATA_ERROR);
   }
   if (strcmp(ext, "jpeg") == 0 || strcmp(ext, "jpg") == 0 ||
@@ -47,7 +47,7 @@ int addJpeg(const char *filename) {
     ar2UtilDivideExt(filename, buf1, buf2);
     jpegImage = ar2ReadJpegImage(buf1, buf2);
     if (jpegImage == NULL) {
-      ARLOGe("Error: unable to read JPEG image from file '%s'. Exiting.\n", filename);
+      webarkitLOGe("Error: unable to read JPEG image from file '%s'. Exiting.\n", filename);
       EXIT(E_INPUT_DATA_ERROR);
     }
     webarkitLOGi("   Done.");
@@ -64,15 +64,12 @@ int addJpeg(const char *filename) {
     webarkitLOGi("JPEG image, dpi is: '%d'", jpegImage->dpi);
 
     if (jpegImage->dpi == 0.0f) {
-      
         webarkitLOGi("JPEG image '%s' does not contain embedded resolution data, and no resolution specified on command-line.", filename);
-      
     }
 
   } else {
-    ARLOGe("Error: file '%s' has extension '%s', which is not supported for "
-           "reading. Exiting.\n",
-           filename, ext);
+    webarkitLOGe("Error: file has extension '%s', which is not supported for "
+           "reading. Exiting.\n", ext);
     free(ext);
     EXIT(E_INPUT_DATA_ERROR);
   }
