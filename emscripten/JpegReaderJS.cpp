@@ -67,12 +67,12 @@ int addJpeg(const char *filename) {
         webarkitLOGi("JPEG image '%s' does not contain embedded resolution data, and no resolution specified on command-line.", filename);
     }
 
-  } else {
-    webarkitLOGe("Error: file has extension '%s', which is not supported for "
+  } else if (strcmp(ext, "png") == 0) {
+      webarkitLOGe("Error: file has extension '%s', which is not supported for "
            "reading. Exiting.\n", ext);
-    free(ext);
-    EXIT(E_INPUT_DATA_ERROR);
-  }
+      free(ext);
+      EXIT(E_INPUT_DATA_ERROR);
+      }  
   free(ext);
   free(jpegImage);
   return 0;
