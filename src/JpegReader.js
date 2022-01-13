@@ -73,5 +73,6 @@ export default class JpegReader {
       encoding: 'binary'
     })
   }
+  
 }
 

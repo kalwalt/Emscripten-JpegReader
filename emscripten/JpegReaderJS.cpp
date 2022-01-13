@@ -64,7 +64,7 @@ int addJpeg(const char *filename) {
     webarkitLOGi("JPEG image, dpi is: '%d'", jpegImage->dpi);
 
     if (jpegImage->dpi == 0.0f) {
-        webarkitLOGi("JPEG image '%s' does not contain embedded resolution data, and no resolution specified on command-line.", filename);
+        webarkitLOGw("JPEG image '%s' does not contain embedded resolution data, and no resolution specified on command-line.", filename);
     }
 
   } else if (strcmp(ext, "png") == 0) {
