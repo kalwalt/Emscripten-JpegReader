@@ -107,8 +107,14 @@ MAIN_SOURCES = MAIN_SOURCES.map(function(src) {
       return path.resolve(__dirname, WEBARKITLIB_ROOT + '/lib/SRC/AR2/', src);
   });
 
+  var webarkit_sources = [ 'WebARKitLog.cpp'].map(function(src) {
+    return path.resolve(__dirname, WEBARKITLIB_ROOT + '/lib/SRC/WebARKit/', src);
+});
+
+
   ar_sources = ar_sources
   .concat(ar2_sources)
+  .concat(webarkit_sources)
 
 var DEFINES = ' ';
 var FLAGS = '' + OPTIMIZE_FLAGS;

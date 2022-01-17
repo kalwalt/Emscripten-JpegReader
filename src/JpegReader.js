@@ -8,7 +8,7 @@ export default class JpegReader {
     // reference to WASM module
     this.instance
     this.jpegCount = 0
-    this.version = '0.1.1'
+    this.version = '0.2.0'
     console.info('JpegReader ', this.version)
   }
 
@@ -73,5 +73,6 @@ export default class JpegReader {
       encoding: 'binary'
     })
   }
+  
 }
 

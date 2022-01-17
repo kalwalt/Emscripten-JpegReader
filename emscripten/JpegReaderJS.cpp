@@ -5,6 +5,7 @@
 #include <AR2/config.h>
 #include <AR2/imageFormat.h>
 #include <AR2/util.h>
+#include <WebARKit/WebARKitLog.h>
 #include <emscripten.h>
 
 extern "C" {
@@ -36,19 +37,20 @@ int addJpeg(const char *filename) {
     return (E_BAD_PARAMETER);
   ext = arUtilGetFileExtensionFromPath(filename, 1);
   if (!ext) {
-    ARLOGe("Error: unable to determine extension of file '%s'. Exiting.\n", filename);
+    webarkitLOGe("Error: unable to determine extension of file '%s'. Exiting.\n", filename);
     EXIT(E_INPUT_DATA_ERROR);
   }
   if (strcmp(ext, "jpeg") == 0 || strcmp(ext, "jpg") == 0 ||
       strcmp(ext, "jpe") == 0) {
-    ARLOGi("Reading JPEG file...\n");
+    webarkitLOGi("Waiting for the jpeg...");
+    webarkitLOGi("Reading JPEG file...");   
     ar2UtilDivideExt(filename, buf1, buf2);
     jpegImage = ar2ReadJpegImage(buf1, buf2);
     if (jpegImage == NULL) {
-      ARLOGe("Error: unable to read JPEG image from file '%s'. Exiting.\n", filename);
+      webarkitLOGe("Error: unable to read JPEG image from file '%s'. Exiting.\n", filename);
       EXIT(E_INPUT_DATA_ERROR);
     }
-    ARLOGi("   Done.\n");
+    webarkitLOGi("   Done.");
  
     if (jpegImage->nc != 1 && jpegImage->nc != 3) {
       ARLOGe("Error: Input JPEG image is in neither RGB nor grayscale format. "
@@ -56,33 +58,27 @@ int addJpeg(const char *filename) {
              jpegImage->nc, (jpegImage->nc == 4 ? "(possibly CMYK) " : ""));
       EXIT(E_INPUT_DATA_ERROR);
     }
-    ARLOGi("JPEG image number of channels: '%d'\n", jpegImage->nc);
-    ARLOGi("JPEG image '%s' is %dx%d.\n", filename, jpegImage->xsize,
-           jpegImage->ysize);
-    ARLOGi("JPEG image, dpi is: '%d'\n", jpegImage->dpi);
+    webarkitLOGi("JPEG image number of channels: '%d'", jpegImage->nc);
+    webarkitLOGi("JPEG image width is: '%d'", jpegImage->xsize);
+    webarkitLOGi("JPEG image height is: '%d'", jpegImage->ysize);
+    webarkitLOGi("JPEG image, dpi is: '%d'", jpegImage->dpi);
 
     if (jpegImage->dpi == 0.0f) {
-      
-        printf("JPEG image '%s' does not contain embedded resolution data, and "
-               "no resolution specified on command-line.\n",
-               filename);
-      
+        webarkitLOGw("JPEG image '%s' does not contain embedded resolution data, and no resolution specified on command-line.", filename);
     }
 
-  } else {
-    ARLOGe("Error: file '%s' has extension '%s', which is not supported for "
-           "reading. Exiting.\n",
-           filename, ext);
-    free(ext);
-    EXIT(E_INPUT_DATA_ERROR);
-  }
+  } else if (strcmp(ext, "png") == 0) {
+      webarkitLOGe("Error: file has extension '%s', which is not supported for "
+           "reading. Exiting.\n", ext);
+      free(ext);
+      EXIT(E_INPUT_DATA_ERROR);
+      }  
   free(ext);
   free(jpegImage);
   return 0;
 }
 
 int readJpeg(std::string filename) {
-  ARLOGi("Filename is: '%s'\n", filename.c_str());
   addJpeg(filename.c_str());
   return 0;
 }
